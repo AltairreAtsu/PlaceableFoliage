@@ -1,0 +1,18 @@
+{
+    "Name": "Placeable Grass",
+    "CreatorName": "Quill Inkwell",
+    "CategoryName": "Terraforming",
+    "UniqueID": 3001,
+    "Recipe": {
+    		"Array" : [72,72],
+    		"SizeX": 1,
+    		"SizeY": 2,
+    		"SizeZ": 1
+    },
+    "Yield": 2,
+    "SimilarTo": 1,
+    "Textures": {
+        "Mode": 1,
+        "WithNormals" : false
+    }
+}
