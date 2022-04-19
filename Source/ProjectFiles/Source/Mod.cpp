@@ -17,31 +17,31 @@ float TickRate = 1;							 // Set how many times per second Event_Tick() is call
 // Run every time a block is placed
 void Event_BlockPlaced(CoordinateInBlocks At, UniqueID CustomBlockID, bool Moved)
 {
-	CoordinateInBlocks blockBelow = At - CoordinateInBlocks(0, 1, 0);
+
 	switch (CustomBlockID)
 	{
 	case 3000:
-		ReplaceDirtWithGrass(blockBelow);
+		ReplaceDirtWithGrass(At);
 		SetBlock(At, EBlockType::Flower3);
 		break;
 	case 3001:
-		ReplaceDirtWithGrass(blockBelow);
+		ReplaceDirtWithGrass(At);
 		SetBlock(At, EBlockType::GrassFoliage);
 		break;
 	case 3002:
-		ReplaceDirtWithGrass(blockBelow);
+		ReplaceDirtWithGrass(At);
 		SetBlock(At, EBlockType::Flower4);
 		break;
 	case 3003:
-		ReplaceDirtWithGrass(blockBelow);
+		ReplaceDirtWithGrass(At);
 		SetBlock(At, EBlockType::FlowerRainbow);
 		break;
 	case 3004:
-		ReplaceDirtWithGrass(blockBelow);
+		ReplaceDirtWithGrass(At);
 		SetBlock(At, EBlockType::Flower1);
 		break;
 	case 3005:
-		ReplaceDirtWithGrass(blockBelow);
+		ReplaceDirtWithGrass(At);
 		SetBlock(At, EBlockType::Flower2);
 		break;
 	default:
@@ -49,11 +49,15 @@ void Event_BlockPlaced(CoordinateInBlocks At, UniqueID CustomBlockID, bool Moved
 	}
 }
 
-void ReplaceDirtWithGrass(const ModAPI::CoordinateInBlocks& blockBelow)
+void ReplaceDirtWithGrass(const ModAPI::CoordinateInBlocks& At)
 {
-	if (GetBlock(blockBelow).Type == EBlockType::Dirt) SetBlock(blockBelow, EBlockType::Grass);
+	CoordinateInBlocks blockBelow = At - CoordinateInBlocks(0, 0, 1);
+	
+	if (GetBlock(blockBelow).Type == EBlockType::Dirt) 
+		SetBlock(blockBelow, EBlockType::Grass);
 }
 
+#if 1
 // Run every time a block is destroyed
 void Event_BlockDestroyed(CoordinateInBlocks At, UniqueID CustomBlockID, bool Moved)
 {}
@@ -61,20 +65,7 @@ void Event_BlockDestroyed(CoordinateInBlocks At, UniqueID CustomBlockID, bool Mo
 
 // Run every time a block is hit by a tool
 void Event_BlockHitByTool(CoordinateInBlocks At, UniqueID CustomBlockID, std::wstring ToolName)
-{
-	if (ToolName == L"T_Stick") {
-
-	}
-	else if (ToolName == L"T_Pickaxe_Stone") {
-
-	}
-	else if (ToolName == L"T_Arrow") {
-
-	}
-	else {
-
-	}
-}
+{}
 
 
 // Run X times per second, as specified in the TickRate variable at the top
@@ -91,6 +82,7 @@ void Event_OnLoad()
 void Event_OnExit()
 {}
 
+#endif
 /*******************************************************
 
 	For all the available game functions you can call, look at the GameAPI.h file
