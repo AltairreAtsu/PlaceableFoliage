@@ -22,6 +22,12 @@ void Internals::Init()
 
 	InternalFunctions::I_SpawnHintText = (SpawnHintText_T) GetProcAddress(app, "SpawnHintText");
 
+	InternalFunctions::I_GetPlayerLocation = (GetPlayerLocation_T) GetProcAddress(app, "GetPlayerLocation");
+
+	InternalFunctions::I_GetPlayerViewDirection = (GetPlayerViewDirection_T) GetProcAddress(app, "GetPlayerViewDirection");
+
+	InternalFunctions::I_GetWorldName = (GetWorldName_T) GetProcAddress(app, "GetWorldName");
+
 	std::string ErrorString = GetLastErrorAsString();
 
 	if (!InternalFunctions::I_Log) __debugbreak();
@@ -77,4 +83,19 @@ const void Internals::E_Event_OnLoad()
 const void Internals::E_Event_OnExit()
 {
 	Event_OnExit();
+}
+
+const void Internals::E_Event_AnyBlockPlaced(const CoordinateInBlocks& At, const BlockInfoC& Type, const bool& Moved)
+{
+	Event_AnyBlockPlaced(At, *((BlockInfo*)&Type), Moved);
+}
+
+const void Internals::E_Event_AnyBlockDestroyed(const CoordinateInBlocks& At, const BlockInfoC& Type, const bool& Moved)
+{
+	Event_AnyBlockDestroyed(At, *((BlockInfo*)&Type), Moved);
+}
+
+const void Internals::E_Event_AnyBlockHitByTool(const CoordinateInBlocks& At, const BlockInfoC& Type, const wchar_t* ToolName)
+{
+	Event_AnyBlockHitByTool(At, *((BlockInfo*)&Type), ToolName);
 }

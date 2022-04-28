@@ -4,7 +4,7 @@
 #include <random>
 #include <limits>
 
-void Log(const std::wstring& String)
+void Log(const wString& String)
 {
 	InternalFunctions::I_Log(String.c_str());
 }
@@ -20,7 +20,7 @@ bool SetBlock(CoordinateInBlocks At, BlockInfo BlockType)
 	return InternalFunctions::I_SetBlock(At, BlockType);
 }
 
-void SpawnHintText(CoordinateInCentimeters At, const std::wstring& Text, float DurationInSeconds, float SizeMultiplier, float SizeMultiplierVertical)
+void SpawnHintText(CoordinateInCentimeters At, const wString& Text, float DurationInSeconds, float SizeMultiplier, float SizeMultiplierVertical)
 {
 	return InternalFunctions::I_SpawnHintText(At, Text.c_str(), DurationInSeconds, SizeMultiplier, SizeMultiplierVertical);
 }
@@ -28,6 +28,11 @@ void SpawnHintText(CoordinateInCentimeters At, const std::wstring& Text, float D
 bool SetBlock(CoordinateInBlocks At, EBlockType NativeType)
 {
 	return SetBlock(At, BlockInfo(NativeType));
+}
+
+bool SetBlock(CoordinateInBlocks At, EBlockType NativeType, ERotation Rotation)
+{
+	return SetBlock(At, BlockInfo(NativeType, Rotation));
 }
 
 bool SetBlock(CoordinateInBlocks At, UniqueID CustomBlockID)
@@ -39,6 +44,17 @@ bool SetBlock(CoordinateInBlocks At, UniqueID CustomBlockID)
 CoordinateInCentimeters GetPlayerLocation()
 {
 	return InternalFunctions::I_GetPlayerLocation();
+}
+
+DirectionVectorInCentimeters GetPlayerViewDirection()
+{
+	DirectionVectorInCentimetersC Type = InternalFunctions::I_GetPlayerViewDirection();
+	return*((DirectionVectorInCentimeters*)(&Type));
+}
+
+wString GetWorldName()
+{
+	return wString(InternalFunctions::I_GetWorldName());
 }
 
 

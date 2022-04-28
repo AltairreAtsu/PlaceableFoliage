@@ -88,3 +88,16 @@ void Event_OnExit()
 	For all the available game functions you can call, look at the GameAPI.h file
 
 *******************************************************/
+void Event_AnyBlockPlaced(CoordinateInBlocks At, BlockInfo Type, bool Moved)
+{
+
+}
+
+void Event_AnyBlockDestroyed(CoordinateInBlocks At, BlockInfo Type, bool Moved)
+{
+
+}
+
+void Event_AnyBlockHitByTool(CoordinateInBlocks At, BlockInfo Type, wString ToolName)
+{
+}

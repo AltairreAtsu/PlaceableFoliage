@@ -1,6 +1,6 @@
 Placeable Foliage
 by Quill Inkwell
-Version 0.2
+Version 0.3
 
 Installation Instructions:
 ===================================
