@@ -1,0 +1,3 @@
+Welcome to the Placeable Foliage mod. Thank you for installing and trying it out!
+
+To get started all mod Recipes can be found under the Terraforming recipe category. Simply collect two of any dye and craft them together to get a placeable flower block of that color. Upon placing that block a flower will instantly be created in that position. The same is true for tall grass. Craft two dried grass together and you will receive a placeable tall grass block!
