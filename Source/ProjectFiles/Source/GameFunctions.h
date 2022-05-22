@@ -122,6 +122,26 @@ namespace ModAPI {
 		None
 	};
 
+	struct SharedMemoryHandleC {
+		void** Pointer;
+		wchar_t* Key;
+		bool Valid;
+	};
+
+	struct ScopedSharedMemoryHandle {
+		void*& Pointer;
+		wchar_t* Key;
+		bool Valid;
+
+		ScopedSharedMemoryHandle(const SharedMemoryHandleC& i) : Pointer(*i.Pointer), Key(i.Key), Valid(i.Valid) {}
+
+		~ScopedSharedMemoryHandle(); // Declared here, defined in GameAPI.cpp
+
+		ScopedSharedMemoryHandle(ScopedSharedMemoryHandle&&) = delete;
+		ScopedSharedMemoryHandle(const ScopedSharedMemoryHandle& i) = delete;
+		ScopedSharedMemoryHandle& operator=(const ScopedSharedMemoryHandle& i) = delete;
+	};
+
 	struct CoordinateInCentimetersC {
 		int64_t X;
 		int64_t Y;
@@ -321,16 +341,37 @@ namespace ModAPI {
 
 	typedef bool (*SetPlayerLocation_T)(ModAPI::CoordinateInCentimeters To);
 
+	typedef ModAPI::CoordinateInCentimetersC(*GetPlayerLocationHead_T)();
+
 	typedef ModAPI::DirectionVectorInCentimetersC (*GetPlayerViewDirection_T)();
 
 	typedef ModAPI::CoordinateInCentimetersC (*GetHandLocation_T)(bool LeftHand);
 
 	typedef ModAPI::CoordinateInCentimetersC (*GetIndexFingerTipLocation_T)(bool LeftHand);
 
+	typedef void (*SpawnBlockItem_T)(ModAPI::CoordinateInCentimeters At, ModAPI::BlockInfo Type);
+
+	typedef void (*AddToInventory_T)(ModAPI::BlockInfo Type, uint32_t Amount);
+	typedef void (*RemoveFromInventory_T)(ModAPI::BlockInfo Type, uint32_t Amount);
+
 	typedef const wchar_t* (*GetWorldName_T)();
 
 	typedef float (*GetTimeOfDay_T)();
 
+	typedef void (*SetTimeOfDay_T)(float NewTime);
+
+
+	typedef void (*PlayHapticFeedbackOnHand_T)(bool LeftHand, float DurationSeconds, float Frequency, float Amplitude);
+
+	typedef void (*SpawnBPModActor_T)(ModAPI::CoordinateInCentimeters At, const wchar_t* ModName, const wchar_t* ActorName);
+
+
+	typedef void (*SaveModDataString_T)(const wchar_t* ModName, const wchar_t* StringIn);
+	typedef bool (*LoadModDataString_T)(const wchar_t* ModName, wchar_t*& StringOut);
+
+
+	typedef SharedMemoryHandleC (*GetSharedMemoryPointer_T)(const wchar_t* Key, bool CreateIfNotExist, bool WaitUntilExist);
+	typedef void (*ReleaseSharedMemoryPointer_T)(ModAPI::SharedMemoryHandleC& Handle);
 
 
 	namespace InternalFunctions {
@@ -350,17 +391,34 @@ namespace ModAPI {
 
 		inline SetPlayerLocation_T I_SetPlayerLocation;
 
+		inline GetPlayerLocationHead_T I_GetPlayerLocationHead;
+
 		inline GetPlayerViewDirection_T I_GetPlayerViewDirection;
 
 		inline GetHandLocation_T I_GetHandLocation;
 
 		inline GetIndexFingerTipLocation_T I_GetIndexFingerTipLocation;
 
+		inline SpawnBlockItem_T I_SpawnBlockItem;
+
+		inline AddToInventory_T I_AddToInventory;
+		inline RemoveFromInventory_T I_RemoveFromInventory;
 
 		inline GetWorldName_T I_GetWorldName;
 
 		inline GetTimeOfDay_T I_GetTimeOfDay;
 
+		inline SetTimeOfDay_T I_SetTimeOfDay;
+
+		inline PlayHapticFeedbackOnHand_T I_PlayHapticFeedbackOnHand;
+
+		inline SpawnBPModActor_T I_SpawnBPModActor;
+
+		inline SaveModDataString_T I_SaveModDataString;
+		inline LoadModDataString_T I_LoadModDataString;
+
+		inline GetSharedMemoryPointer_T I_GetSharedMemoryPointer;
+		inline ReleaseSharedMemoryPointer_T I_ReleaseSharedMemoryPointer;
 	}
 
 
