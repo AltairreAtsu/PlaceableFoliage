@@ -58,46 +58,28 @@ void ReplaceDirtWithGrass(const ModAPI::CoordinateInBlocks& At)
 }
 
 #if 1
-// Run every time a block is destroyed
 void Event_BlockDestroyed(CoordinateInBlocks At, UniqueID CustomBlockID, bool Moved)
 {}
 
-
-// Run every time a block is hit by a tool
-void Event_BlockHitByTool(CoordinateInBlocks At, UniqueID CustomBlockID, std::wstring ToolName)
+void Event_BlockHitByTool(CoordinateInBlocks At, UniqueID CustomBlockID, wString ToolName, CoordinateInCentimeters ExactHitLocation, bool ToolHeldByHandLeft)
 {}
 
-
-// Run X times per second, as specified in the TickRate variable at the top
 void Event_Tick()
 {}
 
-
-
-// Run once when the world is loaded
 void Event_OnLoad()
 {}
 
-// Run once when the world is exited
 void Event_OnExit()
 {}
 
-#endif
-/*******************************************************
-
-	For all the available game functions you can call, look at the GameAPI.h file
-
-*******************************************************/
 void Event_AnyBlockPlaced(CoordinateInBlocks At, BlockInfo Type, bool Moved)
-{
-
-}
+{}
 
 void Event_AnyBlockDestroyed(CoordinateInBlocks At, BlockInfo Type, bool Moved)
-{
+{}
 
-}
+void Event_AnyBlockHitByTool(CoordinateInBlocks At, BlockInfo Type, wString ToolName, CoordinateInCentimeters ExactHitLocation, bool ToolHeldByHandLeft)
+{}
+#endif
 
-void Event_AnyBlockHitByTool(CoordinateInBlocks At, BlockInfo Type, wString ToolName)
-{
-}
